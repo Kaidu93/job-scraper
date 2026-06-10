@@ -22,8 +22,8 @@ export default function JobList() {
 
       {!loading && !error && items !== null && items.length > 0 && (
         <div className="job-list">
-          {items.map((job, i) => (
-            <div key={i} className="job-card">
+          {items.map((job) => (
+            <div key={job.detailsLink} className="job-card">
               <div className="job-left">
                 <span className="job-team">{job.team}</span>
                 <span className="job-location">{job.location}</span>
