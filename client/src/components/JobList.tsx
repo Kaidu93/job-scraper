@@ -8,51 +8,46 @@ export default function JobList() {
 
   return (
     <div>
-      <button onClick={() => dispatch(fetchJobs())} disabled={loading}>
-        Scrape Jobs
+      <button className="btn-scrape" onClick={() => dispatch(fetchJobs())} disabled={loading}>
+        {loading ? 'Scraping…' : 'Scrape Jobs'}
       </button>
 
-      {loading && <p>Loading...</p>}
+      {loading && <p className="status-msg">Loading…</p>}
 
-      {error && <p>Error: {error}</p>}
-
-      {!loading && !error && items === null && null}
+      {error && <p className="error-msg">Error: {error}</p>}
 
       {!loading && !error && items !== null && items.length === 0 && (
-        <p>No job listings were found.</p>
+        <p className="status-msg">No job listings were found.</p>
       )}
 
       {!loading && !error && items !== null && items.length > 0 && (
-        <table>
-          <thead>
-            <tr>
-              <th>Team</th>
-              <th>Location</th>
-              <th>Title</th>
-              <th>Details</th>
-              <th>Min Salary (EUR)</th>
-              <th>Max Salary (EUR)</th>
-              <th>LinkedIn</th>
-            </tr>
-          </thead>
-          <tbody>
-            {items.map((job, i) => (
-              <tr key={i}>
-                <td>{job.team}</td>
-                <td>{job.location}</td>
-                <td>{job.title}</td>
-                <td><a href={job.detailsLink} target="_blank" rel="noreferrer">View</a></td>
-                <td>{job.salaryMin}</td>
-                <td>{job.salaryMax}</td>
-                <td>
-                  {job.linkedInLink
-                    ? <a href={job.linkedInLink} target="_blank" rel="noreferrer">Apply</a>
-                    : '—'}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="job-list">
+          {items.map((job, i) => (
+            <div key={i} className="job-card">
+              <div className="job-left">
+                <span className="job-team">{job.team}</span>
+                <span className="job-location">{job.location}</span>
+              </div>
+              <div className="job-divider" />
+              <div className="job-right">
+                <a href={job.detailsLink} className="job-title" target="_blank" rel="noreferrer">
+                  {job.title}
+                </a>
+                <div className="job-meta">
+                  <span className="job-salary">{job.salaryMin} – {job.salaryMax} EUR</span>
+                  {job.linkedInLink && (
+                    <>
+                      <span className="job-meta-sep">|</span>
+                      <a href={job.linkedInLink} className="job-linkedin" target="_blank" rel="noreferrer">
+                        Apply on LinkedIn
+                      </a>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   )

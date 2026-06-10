@@ -1,8 +1,260 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
+:root {
+  --green: #1bb78a;
+  --green-light: rgba(46, 204, 154, 0.12);
+  --text-dark: #111111;
+  --text-muted: #888888;
+  --border: #e8e8e8;
+  --bg: #f5f5f7;
+}
+
 body {
   margin: 0;
-  font-family: system-ui, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text-dark);
+}
+
+/* Navbar */
+.navbar {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.navbar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.logo {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  letter-spacing: -0.5px;
+  flex-shrink: 0;
+}
+
+.logo-accent {
+  color: var(--green);
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  flex: 1;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-dark);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+}
+
+.linkedin-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #1a3a5c;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.linkedin-icon:hover {
+  background: var(--green);
+}
+
+.btn-careers {
+  background: var(--green);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 10px 24px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.btn-careers:hover {
+  background: #0b121d;
+}
+
+/* Main content */
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 32px 80px;
+}
+
+.page-title {
+  font-size: 2.75rem;
+  font-weight: 800;
+  margin: 0 0 8px;
+}
+
+.page-subtitle {
+  color: var(--text-muted);
+  margin: 0 0 40px;
+  font-size: 0.95rem;
+}
+
+/* Scrape button */
+.btn-scrape {
+  background: var(--green);
+  color: #fff;
+  border: none;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 32px;
+  display: block;
+  transition: background 0.2s;
+}
+
+.btn-scrape:hover:not(:disabled) {
+  background: #0b121d;
+}
+
+.btn-scrape:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.status-msg {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin: 16px 0;
+}
+
+.error-msg {
+  color: #e53e3e;
+  font-size: 0.95rem;
+  margin: 16px 0;
+}
+
+/* Job cards */
+.job-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.job-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.job-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 220px;
+  flex-shrink: 0;
+}
+
+.job-team {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.job-location {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.job-divider {
+  width: 1px;
+  height: 48px;
+  background: var(--border);
+  margin: 0 28px;
+  flex-shrink: 0;
+}
+
+.job-right {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.job-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--green);
+  text-decoration: none;
+}
+
+.job-title:hover {
+  text-decoration: underline;
+}
+
+.job-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.875rem;
+}
+
+.job-salary {
+  color: var(--green);
+  font-weight: 600;
+}
+
+.job-meta-sep {
+  color: var(--border);
+}
+
+.job-linkedin {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.job-linkedin:hover {
+  color: var(--green);
+}
+
+.job-badge {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: var(--green-light);
+  color: var(--green);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 50px;
 }
