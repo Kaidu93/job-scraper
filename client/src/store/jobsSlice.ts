@@ -23,12 +23,18 @@ const initialState: JobsState = {
 }
 
 export const fetchJobs = createAsyncThunk<Job[]>('jobs/fetch', async () => {
-  const response = await fetch('/api/jobs')
-  if (!response.ok) {
-    const body = await response.json().catch(() => ({ error: 'Unknown error' }))
-    throw new Error(body.error ?? 'Request failed')
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), 60_000)
+  try {
+    const response = await fetch('/api/jobs', { signal: controller.signal })
+    if (!response.ok) {
+      const body = await response.json().catch(() => ({ error: 'Unknown error' }))
+      throw new Error(body.error ?? 'Request failed')
+    }
+    return response.json()
+  } finally {
+    clearTimeout(timeout)
   }
-  return response.json()
 })
 
 const jobsSlice = createSlice({
