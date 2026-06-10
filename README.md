@@ -8,7 +8,7 @@ Built as a take-home assessment for the Full Stack Javascript Developer role at 
 
 Click a single button. The app fetches all current job listings and displays them with team, location, title, salary range, a link to the job detail page, and a direct LinkedIn application link.
 
-The LinkedIn link requires a second HTTP pass — it lives behind an "Apply for job" button on each job's detail page, not in the listing page HTML.
+The LinkedIn link requires a second HTTP pass — it lives inside a hidden element on each job's detail page and is extracted directly from the DOM without any interaction.
 
 ## Tech Stack
 
@@ -52,7 +52,7 @@ Both processes must be running simultaneously.
 
 ```bash
 cd server
-npx ts-node index.ts
+npm start
 ```
 
 **Terminal 2 — start the Vite dev server:**
@@ -101,6 +101,6 @@ Returns an array of job objects. Always responds 200 — scrape failures (site u
 
 ## Notes
 
-- Each scrape opens a Chrome window briefly — this is expected. The window closes when the scrape completes.
+- Each scrape opens a single Chrome window — this is expected. All pages (listing + detail pages) are fetched within that one window, which closes when the scrape completes.
 - Detail pages are fetched sequentially (not in parallel) to avoid triggering rate limiting.
 - No database, no caching — data is fetched fresh on every button click.
