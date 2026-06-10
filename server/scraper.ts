@@ -50,9 +50,7 @@ async function scrapeDetailPage(context: BrowserContext, url: string): Promise<s
   const page = await context.newPage();
   try {
     await page.goto(url, { waitUntil: 'domcontentloaded' });
-    await page.waitForSelector('input.application_button', { timeout: 30000 });
-    await page.click('input.application_button');
-    await page.waitForSelector('.application_details a', { state: 'attached', timeout: 5000 });
+    await page.waitForSelector('.application_details a', { state: 'attached', timeout: 30000 });
     const html = await page.content();
     const $ = cheerio.load(html);
     return $('.application_details a').first().attr('href') ?? null;
